@@ -15,7 +15,6 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { getUsers } from './services/users';
 import { Table } from 'react-bootstrap';
 import User from './components/User';
-import { Router } from 'react-router-dom';
 
 const App = () => {
   const [username, setUsername] = useState('');
