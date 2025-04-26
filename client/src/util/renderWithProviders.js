@@ -1,8 +1,9 @@
-import React from 'react'
-import { render } from '@testing-library/react'
-import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
-import { MemoryRouter, Routes, Route } from 'react-router-dom'
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 export const renderWithProviders = (ui, { preloadedState = {}, route = '/', path = '*' } = {}) => {
   const store = configureStore({
@@ -10,7 +11,7 @@ export const renderWithProviders = (ui, { preloadedState = {}, route = '/', path
       blogs: (state = preloadedState.blogs || []) => state,
     },
     preloadedState,
-  })
+  });
 
   return {
     store,
@@ -29,5 +30,5 @@ export const renderWithProviders = (ui, { preloadedState = {}, route = '/', path
         </MemoryRouter>
       </Provider>,
     ),
-  }
-}
+  };
+};
