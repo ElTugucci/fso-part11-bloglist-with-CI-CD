@@ -30,7 +30,7 @@ jobs:
 
   tag_release: 
 
-    if: ${{ github.ref == 'refs/heads/main' && github.env.SKIP == 'false'}}
+    if: ${{ github.ref == 'refs/heads/main'}}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
     steps:
