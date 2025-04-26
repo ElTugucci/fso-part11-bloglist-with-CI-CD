@@ -1,9 +1,9 @@
-import { Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Nav, Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 const Menu = () => {
   const padding = {
     paddingRight: 5,
-  };
+  }
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -27,7 +27,7 @@ const Menu = () => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu

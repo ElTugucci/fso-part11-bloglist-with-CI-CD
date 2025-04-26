@@ -1,9 +1,9 @@
-const { TextEncoder, TextDecoder } = require('util');
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+const { TextEncoder, TextDecoder } = require('util')
+global.TextEncoder = TextEncoder
+global.TextDecoder = TextDecoder
 
-const mongoose = require('mongoose');
-const Blog = require('../models/blog');
+const mongoose = require('mongoose')
+const Blog = require('../models/blog')
 
 const initialBlogs = [
   {
@@ -60,23 +60,23 @@ const initialBlogs = [
     likes: 2,
     __v: 0,
   },
-];
+]
 
 const nonExistingId = async () => {
-  const blog = new Blog({ content: 'willremovethissoon' });
-  await blog.save();
-  await blog.deleteOne();
+  const blog = new Blog({ content: 'willremovethissoon' })
+  await blog.save()
+  await blog.deleteOne()
 
-  return blog._id.toString();
-};
+  return blog._id.toString()
+}
 
 const blogsInDb = async () => {
-  const blogs = await Blog.find({});
-  return blogs.map((blog) => blog.toJSON());
-};
+  const blogs = await Blog.find({})
+  return blogs.map((blog) => blog.toJSON())
+}
 
 module.exports = {
   initialBlogs,
   nonExistingId,
   blogsInDb,
-};
+}

@@ -27,6 +27,9 @@ jobs:
       - name: Build App
         run: npm run build
 
+      - name: Run Unit Tests
+        run: npm run test
+
       - name: Deploy app to Fly.io
         run: flyctl deploy --remote-only
         env:

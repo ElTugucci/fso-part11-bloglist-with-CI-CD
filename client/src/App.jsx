@@ -1,95 +1,95 @@
-import { useState, useEffect } from 'react';
-import Blog from './components/Blog';
-import blogService from './services/blogs';
-import loginService from './services/login';
-import Notification from './components/Notification';
-import Error from './components/Error';
-import Togglable from './components/Togglable';
-import BlogForm from './components/BlogForm';
-import { setNotification } from './reducers/notificationReducer';
-import { useSelector, useDispatch } from 'react-redux';
-import { setError } from './reducers/errorReducer';
-import { createBlog, initializeBlogs } from './reducers/blogReducer';
-import { initializeUsers, setUser } from './reducers/userReducer';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { getUsers } from './services/users';
-import { Table } from 'react-bootstrap';
-import User from './components/User';
+import { useState, useEffect } from 'react'
+import Blog from './components/Blog'
+import blogService from './services/blogs'
+import loginService from './services/login'
+import Notification from './components/Notification'
+import Error from './components/Error'
+import Togglable from './components/Togglable'
+import BlogForm from './components/BlogForm'
+import { setNotification } from './reducers/notificationReducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { setError } from './reducers/errorReducer'
+import { createBlog, initializeBlogs } from './reducers/blogReducer'
+import { initializeUsers, setUser } from './reducers/userReducer'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { getUsers } from './services/users'
+import { Table } from 'react-bootstrap'
+import User from './components/User'
 
 const App = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [users, setUsers] = useState([]);
-  const dispatch = useDispatch();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [users, setUsers] = useState([])
+  const dispatch = useDispatch()
 
   const blogs = useSelector((state) => {
-    return state.blogs;
-  });
+    return state.blogs
+  })
 
   const user = useSelector((state) => {
-    return state.user;
-  });
+    return state.user
+  })
 
   useEffect(() => {
-    dispatch(initializeBlogs());
-  }, [dispatch]);
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(initializeUsers());
-  }, [dispatch]);
+    dispatch(initializeUsers())
+  }, [dispatch])
 
   useEffect(() => {
     if (user) {
-      blogService.setToken(user.token);
+      blogService.setToken(user.token)
     }
-  });
+  })
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const users = await getUsers();
-        setUsers(users);
+        const users = await getUsers()
+        setUsers(users)
       } catch (error) {
-        console.log('Error fetching users ', error);
+        console.log('Error fetching users ', error)
       }
-    };
-    fetchUsers();
-  }, []);
+    }
+    fetchUsers()
+  }, [])
 
   const sortBlogs = (blogs) => {
-    const sortedBlogs = [...blogs];
-    return sortedBlogs.sort((a, b) => b.likes - a.likes);
-  };
+    const sortedBlogs = [...blogs]
+    return sortedBlogs.sort((a, b) => b.likes - a.likes)
+  }
 
   const logout = () => {
-    window.localStorage.clear();
-    dispatch(setUser(null));
-    dispatch(setNotification('Logged out', 5));
-  };
+    window.localStorage.clear()
+    dispatch(setUser(null))
+    dispatch(setNotification('Logged out', 5))
+  }
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const user = await loginService.login({
         username,
         password,
-      });
-      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user));
-      blogService.setToken(user.token);
-      dispatch(setUser(user));
-      setUsername('');
-      setPassword('');
-      dispatch(setNotification(`${user.username} logged in`, 5));
+      })
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
+      blogService.setToken(user.token)
+      dispatch(setUser(user))
+      setUsername('')
+      setPassword('')
+      dispatch(setNotification(`${user.username} logged in`, 5))
     } catch (exception) {
-      console.log(exception);
-      dispatch(setError(`${exception.response.data.error}`, 5));
+      console.log(exception)
+      dispatch(setError(`${exception.response.data.error}`, 5))
     }
-  };
+  }
 
   const addBlog = (blogObject) => {
-    dispatch(createBlog(blogObject));
-    dispatch(setNotification(`${blogObject.title} by ${blogObject.author} is added`, 5));
-  };
+    dispatch(createBlog(blogObject))
+    dispatch(setNotification(`${blogObject.title} by ${blogObject.author} is added`, 5))
+  }
 
   const LoginForm = () => {
     return (
@@ -120,8 +120,8 @@ const App = () => {
           login
         </button>
       </form>
-    );
-  };
+    )
+  }
 
   const UserPage = () => {
     return (
@@ -144,8 +144,8 @@ const App = () => {
           </tbody>
         </Table>
       </div>
-    );
-  };
+    )
+  }
 
   const UserStatus = () => {
     return (
@@ -153,16 +153,16 @@ const App = () => {
         <div>{user.name} logged in</div>
         <button onClick={() => logout()}>logout</button>
       </>
-    );
-  };
+    )
+  }
 
   const TogglableForm = () => {
     return (
       <Togglable buttonLabel="Add Blog">
         <BlogForm createBlog={addBlog}></BlogForm>
       </Togglable>
-    );
-  };
+    )
+  }
 
   const BlogList = () => {
     return (
@@ -176,8 +176,8 @@ const App = () => {
           </div>
         ))}
       </div>
-    );
-  };
+    )
+  }
 
   const Home = () => {
     return (
@@ -185,8 +185,8 @@ const App = () => {
         {user && <TogglableForm />}
         {user && <BlogList />}
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <Router>
@@ -207,7 +207,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

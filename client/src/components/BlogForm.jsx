@@ -1,22 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
-import { useState } from 'react';
+import React from 'react'
+import { useState } from 'react'
 const BlogForm = ({ createBlog }) => {
-  const [author, setAuthor] = useState('');
-  const [title, setTitle] = useState('');
-  const [url, setUrl] = useState('');
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
 
   const addBlog = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     createBlog({
       title: title,
       author: author,
       url: url,
-    });
-    setAuthor('');
-    setTitle('');
-    setUrl('');
-  };
+    })
+    setAuthor('')
+    setTitle('')
+    setUrl('')
+  }
 
   return (
     <div>
@@ -65,6 +65,6 @@ const BlogForm = ({ createBlog }) => {
         </form>
       </div>
     </div>
-  );
-};
-export default BlogForm;
+  )
+}
+export default BlogForm
