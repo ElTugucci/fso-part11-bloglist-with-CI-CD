@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+ Content-Type: application/json
+ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdWtrYWkiLCJpZCI6IjY1YTUyYWQ3MDBmYzg1ZjVkMTBmOGE0ZSIsImlhdCI6MTcwNTUyMDE4NH0.zN3AA4em2IBDqGBwEzCiaf9jY6wZVR1UYUbBV166Wos 
+
+ {
+ "title": "And Another Blog with a token but in middleware",
+    "author": "an author",
+    "url": "http://blalaallalala",
+    "likes": 756
+ }
