@@ -6,4 +6,6 @@ const PORT = config.PORT || 5001
 
 app.listen(PORT, () => {
   info(`Server running on port ${PORT}`)
+  info(`Running in environment: ${process.env.NODE_ENV}`);
+
 })

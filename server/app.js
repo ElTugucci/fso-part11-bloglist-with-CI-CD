@@ -4,7 +4,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-mongoose.set('strictQuery', false) // or true depending on what you prefer
+mongoose.set('strictQuery', false)
 
 const middleware = require('./utils/middleware')
 const blogRouter = require('./controllers/blogs')
@@ -15,6 +15,8 @@ const loginRouter = require('./controllers/login')
 
 info('connecting to MongoDB')
 
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
@@ -23,6 +25,7 @@ mongoose
   .catch((error) => {
     err('error connecting to MongoDB:', error)
   })
+
 
 app.use(express.json())
 app.use(middleware.requestLogger)
@@ -33,7 +36,7 @@ app.use(middleware.userExtractor)
 app.use('/api/login', loginRouter)
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', usersRouter)
-app.use('/health', healthRouter)
+app.use('api/health', healthRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')

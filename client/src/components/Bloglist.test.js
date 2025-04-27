@@ -35,7 +35,7 @@ describe('<Blog />', () => {
     localStorage.clear()
   })
 
-  test('renders blog title', async () => {
+  test('renders blog', async () => {
     renderBlog()
     await screen.findByText(blog.title)
     expect(screen.getByText(blog.title)).toBeInTheDocument()

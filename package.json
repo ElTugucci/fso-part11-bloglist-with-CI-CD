@@ -12,7 +12,8 @@
     "lint": "eslint --fix .",
     "cypress:open": "cypress open",
     "format": "npx prettier --write .",
-    "eslint": "eslint './**/*.{js,jsx}' --fix"
+    "eslint": "eslint './**/*.{js,jsx}' --fix",
+    "start-test": "NODE_ENV=test node index.js & wait-on http://localhost:5001/api/testing/reset"
   },
   "dependencies": {
     "@eslint/config-array": "^0.20.0",
@@ -33,7 +34,8 @@
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.1",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "wait-on": "^8.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",

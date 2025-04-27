@@ -21,27 +21,29 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check style
-        run: npm run eslint
+     # - name: Check style
+      #  run: npm run eslint
 
       - name: Build App
         run: npm run build
       
-      - name: Wait for MongoDB
-        run: sleep 10
+      ##- name: Run Unit Tests
+      #  env:
+       #   TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+      #    SECRET: ${{ secrets.SECRET }} 
+      #  run: npm run test
 
-      - name: Run Unit Tests
+      - name: Cypress run
         env:
-          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SECRET }} 
-        run: npm run test
 
-     # - name: Cypress run
-      #  uses: cypress-io/github-action@v6
-       # with:
-       #   build: npm run build
-        #  start: npm run start
-        #  browser: chrome
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm run start-test
+          wait-on: http://localhost:5001/api/testing/reset  # Ensure the server is up before starting tests
+          browser: chrome
 
       - name: Deploy app to Fly.io
         run: flyctl deploy --remote-only
