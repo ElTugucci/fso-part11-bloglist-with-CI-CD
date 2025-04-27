@@ -13,9 +13,9 @@ const { info, err } = require('./utils/logger')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
-info('connecting to MongoDB')
-
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
+info('config mongo uri', config.MONGODB_URI)
+info('app MONGODB_URI:', process.env.MONGODB_URI);
+info('app TEST_MONGODB_URI:', process.env.TEST_MONGODB_URI);
 
 mongoose
   .connect(config.MONGODB_URI)

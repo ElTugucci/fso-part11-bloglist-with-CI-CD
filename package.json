@@ -13,7 +13,8 @@
     "cypress:open": "cypress open",
     "format": "npx prettier --write .",
     "eslint": "eslint './**/*.{js,jsx}' --fix",
-    "start-test": "NODE_ENV=test node index.js & wait-on http://localhost:5001/api/testing/reset"
+    "start-test": "cross-env NODE_ENV=test node index.js",
+    "cy:run": "wait-on http://localhost:5001/api/testing/reset && cypress run"
   },
   "dependencies": {
     "@eslint/config-array": "^0.20.0",

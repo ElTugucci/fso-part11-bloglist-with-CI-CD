@@ -19,7 +19,7 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
      # - name: Check style
       #  run: npm run eslint
@@ -34,16 +34,23 @@ jobs:
       #  run: npm run test
 
       - name: Cypress run
-        env:
-          MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-          SECRET: ${{ secrets.SECRET }} 
-
         uses: cypress-io/github-action@v6
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI}}
+          SECRET: ${{ secrets.SECRET }} 
+          NODE_ENV: test
+
         with:
           build: npm run build
           start: npm run start-test
-          wait-on: http://localhost:5001/api/testing/reset  # Ensure the server is up before starting tests
+          wait-on: http://localhost:5001/api/testing/reset  
           browser: chrome
+       
+     
+      - name: Run Cypress tests
+        run: npm run cy:run # Assuming this is the correct script for running Cypress
+
 
       - name: Deploy app to Fly.io
         run: flyctl deploy --remote-only

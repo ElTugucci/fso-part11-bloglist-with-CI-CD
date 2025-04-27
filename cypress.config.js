@@ -9,7 +9,7 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:5001',
     env: {
-      BACKEND: 'http://localhost:3003/api',
+      BACKEND: 'http://localhost:5001/api',
     },
   },
 })
