@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Unit Tests
         env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGO_URI: ${{ secrets.TEST_MONGODB_URI }}
         run: npm run test
 
       - name: Deploy app to Fly.io
