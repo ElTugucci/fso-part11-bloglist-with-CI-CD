@@ -1,0 +1,19 @@
+name: Periodic healthcheck
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+  - cron: '30/15 9-14 28-29 4 *'
+ 
+jobs:
+  healthcheck_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deployed app health
+        uses: jtalk/url-health-check-action@v4
+        with:
+          url: https://fso-part11-bloglist-with-ci-cd-thrumming-fog-8382.fly.dev
+          max-attempts: 3
+          retry-delay: 5s
