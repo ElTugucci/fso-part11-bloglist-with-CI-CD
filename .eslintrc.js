@@ -43,5 +43,6 @@ module.exports = {
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 'off',
     'react/prop-types': 0,
+    'cypress/no-unnecessary-waiting': 'off',
   },
-}
+};

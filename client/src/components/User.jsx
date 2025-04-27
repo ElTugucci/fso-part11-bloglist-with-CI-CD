@@ -1,10 +1,10 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 const User = ({ users }) => {
-  const id = useParams().id
+  const id = useParams().id;
   if (!users) {
-    return <h1>loading....</h1>
+    return <h1>loading....</h1>;
   }
-  const user = users.find((n) => n.id === id)
+  const user = users.find((n) => n.id === id);
 
   if (user) {
     return (
@@ -20,9 +20,9 @@ const User = ({ users }) => {
           ))}
         </ul>
       </div>
-    )
+    );
   } else {
-    return <div>No user, sorry</div>
+    return <div>No user, sorry</div>;
   }
-}
-export default User
+};
+export default User;

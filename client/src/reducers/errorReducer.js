@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const errorSlice = createSlice({
   name: 'error',
   initialState: '',
   reducers: {
     showError(state, action) {
-      return action.payload
+      return action.payload;
     },
     hideError() {
-      return ''
+      return '';
     },
   },
-})
+});
 
 export const setError = (text, time) => {
   return (dispatch) => {
-    dispatch(showError(text))
+    dispatch(showError(text));
     setTimeout(() => {
-      dispatch(hideError())
-    }, time * 1000)
-  }
-}
+      dispatch(hideError());
+    }, time * 1000);
+  };
+};
 
-export const { showError, hideError } = errorSlice.actions
-export default errorSlice.reducer
+export const { showError, hideError } = errorSlice.actions;
+export default errorSlice.reducer;

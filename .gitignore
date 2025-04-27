@@ -1,8 +1,6 @@
 node_modules/
 
-# Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
 .env
+ .DS_Store
+/cypress/
+/client/dist/
