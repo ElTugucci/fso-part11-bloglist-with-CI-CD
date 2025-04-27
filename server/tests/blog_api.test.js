@@ -9,7 +9,6 @@ const helper = require('./test_helper')
 
 const api = supertest(app)
 const Blog = require('../models/blog')
-jest.setTimeout(20000) // 20 seconds
 
 
 beforeEach(async () => {
@@ -19,7 +18,7 @@ beforeEach(async () => {
   const promiseArray = blogObjects.map((blog) => blog.save())
   await Promise.all(promiseArray)
 
-})
+}, 20000)
 
 test('correct amount of blogs are returned as json', async () => {
 
