@@ -10,6 +10,13 @@ const helper = require('./test_helper')
 const api = supertest(app)
 const Blog = require('../models/blog')
 
+beforeAll(async () => {
+  const mongoUrl = process.env.TEST_MONGODB_URI
+  await mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+}, 30000)
 
 beforeEach(async () => {
 
