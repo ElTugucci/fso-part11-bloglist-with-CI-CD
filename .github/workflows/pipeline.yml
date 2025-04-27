@@ -33,7 +33,15 @@ jobs:
       - name: Run Unit Tests
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          SECRET: ${{ secrets.SECRET }} 
         run: npm run test
+
+     # - name: Cypress run
+      #  uses: cypress-io/github-action@v6
+       # with:
+       #   build: npm run build
+        #  start: npm run start
+        #  browser: chrome
 
       - name: Deploy app to Fly.io
         run: flyctl deploy --remote-only
