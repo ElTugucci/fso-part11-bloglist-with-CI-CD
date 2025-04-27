@@ -50,6 +50,17 @@ describe('Blog app', function() {
       cy.login({ username: 'mlukkai', password: 'salainen' });
     });
 
+    it('A blog can be created', function() {
+      cy.createBlog({
+        title: 'new blog by cypress',
+        author: 'new author by cypress',
+        url: 'new url by cypress',
+      });
+
+
+      cy.contains('new blog by cypress');
+    })
+
     it('user can like the blog', function() {
       cy.createBlog({
         title: 'another blog by cypress',
