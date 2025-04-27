@@ -18,7 +18,7 @@ beforeEach(async () => {
   const promiseArray = blogObjects.map((blog) => blog.save())
   await Promise.all(promiseArray)
 
-}, 5000)
+}, 10000)
 
 test('correct amount of blogs are returned as json', async () => {
 

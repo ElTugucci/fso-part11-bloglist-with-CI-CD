@@ -12,8 +12,6 @@
     "lint": "eslint --fix .",
     "cypress:open": "cypress open",
     "format": "npx prettier --write .",
-    "test:e2e": "npx playwright test ./e2e-tests",
-    "test:report": "npx playwright show-report",
     "eslint": "eslint './**/*.{js,jsx}' --fix"
   },
   "dependencies": {
