@@ -45,4 +45,4 @@ module.exports = {
     'react/prop-types': 0,
     'cypress/no-unnecessary-waiting': 'off',
   },
-};
+}

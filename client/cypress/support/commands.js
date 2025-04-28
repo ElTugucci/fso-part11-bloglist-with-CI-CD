@@ -3,14 +3,14 @@ Cypress.Commands.add('login', ({ username, password }) => {
     username: username,
     password: password,
   }).then((response) => {
-    localStorage.setItem('loggedBlogappUser', JSON.stringify(response.body));
-    cy.visit('');
-  });
-});
+    localStorage.setItem('loggedBlogappUser', JSON.stringify(response.body))
+    cy.visit('')
+  })
+})
 
 Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
-  const loggedUser = JSON.parse(localStorage.getItem('loggedBlogappUser'));
-  const { name, token } = loggedUser;
+  const loggedUser = JSON.parse(localStorage.getItem('loggedBlogappUser'))
+  const { name, token } = loggedUser
 
   cy.request({
     url: 'http://localhost:5001/api/blogs',
@@ -19,6 +19,6 @@ Cypress.Commands.add('createBlog', ({ title, author, url, likes }) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  });
-  cy.visit('');
-});
+  })
+  cy.visit('')
+})

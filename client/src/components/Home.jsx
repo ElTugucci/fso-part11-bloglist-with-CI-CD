@@ -1,60 +1,60 @@
-import { useEffect } from 'react';
-import Blog from './Blog';
-import Error from './Error';
-import Notification from './Notification';
-import Togglable from './Togglable';
-import BlogForm from './BlogForm';
-import { setNotification } from '../reducers/notificationReducer';
-import { useSelector, useDispatch } from 'react-redux';
-import { setError } from '../reducers/errorReducer';
-import { createBlog, blogDelete, blogLike, initializeBlogs } from '../reducers/blogReducer';
+import { useEffect } from 'react'
+import Blog from './Blog'
+import Error from './Error'
+import Notification from './Notification'
+import Togglable from './Togglable'
+import BlogForm from './BlogForm'
+import { setNotification } from '../reducers/notificationReducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { setError } from '../reducers/errorReducer'
+import { createBlog, blogDelete, blogLike, initializeBlogs } from '../reducers/blogReducer'
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const blogs = useSelector((state) => state.blogs);
-  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+  const blogs = useSelector((state) => state.blogs)
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
-    dispatch(initializeBlogs());
-  }, [dispatch]);
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   const sortBlogs = (blogs) => {
-    const sortedBlogs = [...blogs];
-    return sortedBlogs.sort((a, b) => b.likes - a.likes);
-  };
+    const sortedBlogs = [...blogs]
+    return sortedBlogs.sort((a, b) => b.likes - a.likes)
+  }
 
   const like = (id) => {
     try {
-      dispatch(blogLike(id));
+      dispatch(blogLike(id))
     } catch (exception) {
-      console.log('Error updating blog:', exception);
+      console.log('Error updating blog:', exception)
     }
-  };
+  }
 
   const deleteBlog = async (id) => {
-    const currentBlog = blogs.find((b) => b.id === id);
+    const currentBlog = blogs.find((b) => b.id === id)
     if (window.confirm(`Do you want to delete ${currentBlog.title} by ${currentBlog.author}`)) {
       try {
-        dispatch(blogDelete(currentBlog.id));
-        dispatch(setNotification(`${currentBlog.title} deleted successfully`, 5));
+        dispatch(blogDelete(currentBlog.id))
+        dispatch(setNotification(`${currentBlog.title} deleted successfully`, 5))
       } catch (exception) {
-        dispatch(setError(`${exception.response.data.error}`, 5));
+        dispatch(setError(`${exception.response.data.error}`, 5))
       }
     }
-  };
+  }
 
   const addBlog = (blogObject) => {
-    dispatch(createBlog(blogObject));
-    dispatch(setNotification(`${blogObject.title} by ${blogObject.author} is added`, 5));
-  };
+    dispatch(createBlog(blogObject))
+    dispatch(setNotification(`${blogObject.title} by ${blogObject.author} is added`, 5))
+  }
 
   const blogForm = () => (
     <Togglable buttonLabel="Add Blog">
-      <div className='form'>
+      <div className="form">
         <BlogForm createBlog={addBlog}></BlogForm>
       </div>
     </Togglable>
-  );
+  )
 
   const blogList = () => {
     return (
@@ -64,8 +64,8 @@ const Home = () => {
           <Blog blog={blog} key={blog.id} like={() => like(blog.id)} deleteBlog={() => deleteBlog(blog.id)} />
         ))}
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -74,6 +74,6 @@ const Home = () => {
       {user && blogForm()}
       {user && blogList()}
     </div>
-  );
-};
-export default Home;
+  )
+}
+export default Home

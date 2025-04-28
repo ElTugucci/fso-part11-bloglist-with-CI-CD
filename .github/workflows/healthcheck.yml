@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-  - cron: '30/15 9-14 28-29 4 *'
- 
+    - cron: '30/15 9-14 28-29 4 *'
+
 jobs:
   healthcheck_job:
     runs-on: ubuntu-latest

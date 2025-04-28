@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const Error = () => {
-  const error = useSelector((state) => state.error);
+  const error = useSelector((state) => state.error)
 
   const errorStyle = {
     color: 'red',
@@ -13,16 +13,16 @@ const Error = () => {
     borderStyle: 'solid',
     marginBottom: 10,
     padding: 10,
-  };
+  }
 
   if (error === '') {
-    return null;
+    return null
   }
 
   return (
     <div className="error" style={errorStyle}>
       {error}
     </div>
-  );
-};
-export default Error;
+  )
+}
+export default Error
