@@ -16,6 +16,38 @@ import { getUsers } from './services/users';
 import { Table } from 'react-bootstrap';
 import User from './components/User';
 
+const LoginForm = ({ username, password, setUsername, setPassword, handleLogin }) => {
+  return (
+    <form onSubmit={handleLogin}>
+      <div>
+        username
+        <input
+          type="text"
+          id="username"
+          value={username}
+          name="Username"
+          autoComplete="username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+        <input
+          type="password"
+          id="password"
+          value={password}
+          name="Password"
+          autoComplete="current-password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button id="login-button" type="submit">
+        login
+      </button>
+    </form>
+  );
+};
+
 const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -91,37 +123,6 @@ const App = () => {
     dispatch(setNotification(`${blogObject.title} by ${blogObject.author} is added`, 5));
   };
 
-  const LoginForm = () => {
-    return (
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
-            id="username"
-            value={username}
-            name="Username"
-            autoComplete="username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            id="password"
-            value={password}
-            name="Password"
-            autoComplete="current-password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button id="login-button" type="submit">
-          login
-        </button>
-      </form>
-    );
-  };
 
   const UserPage = () => {
     return (
@@ -193,7 +194,15 @@ const App = () => {
       <div>
         <Link to="/">home</Link>
         <Link to="/users"> users</Link>
-        {!user && <LoginForm />}
+        {!user && (
+          <LoginForm
+            username={username}
+            password={password}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+          />
+        )}
         <div>{user && <UserStatus />}</div>
       </div>
       <div>
