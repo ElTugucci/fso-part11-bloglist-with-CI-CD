@@ -1,5 +1,6 @@
-describe('Blog app', function () {
-  beforeEach(function () {
+describe('Blog app', function() {
+
+  beforeEach(function() {
     cy.request({
       method: 'POST',
       url: 'http://localhost:5001/api/testing/reset',
@@ -21,23 +22,24 @@ describe('Blog app', function () {
       username: 'hellas',
       password: 'salainen',
     }
+
     cy.request('POST', `${Cypress.env('BACKEND')}/users`, arto)
     cy.visit('')
   })
 
-  it('Login form is shown', function () {
+  it('Login form is shown', function() {
     cy.contains('username')
     cy.contains('password')
   })
 
-  describe('Login', function () {
-    it('succeeds with correct credentials', function () {
+  describe('Login', function() {
+    it('succeeds with correct credentials', function() {
       cy.get('#username').type('mlukkai')
       cy.get('#password').type('salainen')
       cy.get('#login-button').click()
     })
 
-    it('fails with wrong credentials', function () {
+    it('fails with wrong credentials', function() {
       cy.get('#username').type('mlukkai')
       cy.get('#password').type('wrong password')
       cy.get('#login-button').click()
@@ -45,34 +47,40 @@ describe('Blog app', function () {
     })
   })
 
-  describe('When logged in', function () {
-    beforeEach(function () {
+  describe('When logged in', function() {
+
+    beforeEach(function() {
       cy.login({ username: 'mlukkai', password: 'salainen' })
     })
 
-    it('A blog can be created', function () {
-      cy.createBlog({
-        title: 'new blog by cypress',
-        author: 'new author by cypress',
-        url: 'new url by cypress',
-      })
-
-      cy.contains('new blog by cypress')
+    it('user can log out', function() {
+      cy.contains('logout').click()
+      cy.get('#login-button').should('be.visible')
     })
 
-    it('user can like the blog', function () {
+    it('A blog can be created', function() {
       cy.createBlog({
-        title: 'another blog by cypress',
-        author: 'another author by cypress',
-        url: 'another url by cypress',
+        title: 'First blog by mluukkai',
+        author: 'Mluukkai',
+        url: 'new url by mluukkai',
       })
-      cy.contains('another blog by cypress')
-      cy.contains('another blog by cypress').click()
+
+      cy.contains('First blog by mluukkai')
+    })
+
+    it('user can like the blog', function() {
+      cy.createBlog({
+        title: 'Second blog by mluukkai',
+        author: 'Mluukkai',
+        url: 'new url by mluukkai',
+      })
+      cy.contains('Second blog by mluukkai')
+      cy.contains('Second blog by mluukkai').click()
       cy.contains('like').click()
       cy.contains('1')
     })
 
-    it('user who created the blog can delete it', function () {
+    it('user who created the blog can delete it', function() {
       cy.createBlog({ title: 'new blog', author: 'author', url: 'http://remove.com' })
 
       cy.contains('new blog').should('be.visible')
@@ -90,13 +98,14 @@ describe('Blog app', function () {
     })
   })
 
-  describe('make sure that only creator of the note can see the delete button', function () {
-    beforeEach(function () {
+  describe('make sure that only creator of the note can see the delete button', function() {
+    beforeEach(function() {
       cy.login({ username: 'mlukkai', password: 'salainen' })
       cy.createBlog({ title: 'blog by mlukkai', author: 'mlukkai', url: 'http://mlukkai.fi' })
       cy.contains('logout').click()
     })
-    it('user who did not create the blog can not see the delete button', function () {
+
+    it('user who did not create the blog can not see the delete button', function() {
       cy.login({ username: 'hellas', password: 'salainen' })
       cy.contains('blog by mlukkai').click()
       cy.get('.delete').should('not.exist')
@@ -104,8 +113,8 @@ describe('Blog app', function () {
     })
   })
 
-  describe('test that blogs are ordered according to the number of likes', function () {
-    beforeEach(function () {
+  describe('test that blogs are ordered according to the number of likes', function() {
+    beforeEach(function() {
       cy.login({ username: 'mlukkai', password: 'salainen' })
       cy.createBlog({ title: 'blog 1', author: 'mlukkai', url: 'http://mlukkai.fi', likes: 2 })
       cy.createBlog({ title: 'blog 2', author: 'mlukkai', url: 'http://mlukkai.fi', likes: 3 })
@@ -113,7 +122,7 @@ describe('Blog app', function () {
       cy.createBlog({ title: 'blog 4', author: 'mlukkai', url: 'http://mlukkai.fi', likes: 8 })
     })
 
-    it('ordered by likes', function () {
+    it('ordered by likes', function() {
       cy.get('.blogDiv').eq(0).contains('blog 4')
       cy.get('.blogDiv').eq(1).contains('blog 3')
       cy.get('.blogDiv').eq(2).contains('blog 2')
