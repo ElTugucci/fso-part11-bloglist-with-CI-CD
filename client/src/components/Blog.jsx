@@ -79,7 +79,7 @@ const Blog = () => {
       )}
       <h4>comments</h4>
       <form onSubmit={addCommentHandler}>
-        <input name="comment" />
+        <input className="comment" />
         <button type="submit">add</button>
       </form>
       {blog.comments && blog.comments.length > 0 ? (
